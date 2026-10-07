@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "953859297774",
+    "project_id": "hangout-4ef39",
+    "storage_bucket": "hangout-4ef39.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:953859297774:android:1a6e98ed981375e51ebeff",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUOXW4IKuLH6ZKlWJP7zte3LNbc6edArU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
