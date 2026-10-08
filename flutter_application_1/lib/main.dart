@@ -82,8 +82,41 @@ class _MainMenuState extends State<MainMenu> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            buildNavButton(context, 'Start Game', const GamePage()),
+            buildNavButton(context, 'Start Game', const GameTime()),
             buildNavButton(context, 'Back to Login', const Login()),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+class GameTime extends StatefulWidget {
+  const GameTime({super.key});
+
+  @override
+  State<GameTime> createState() => _GameTimeState();
+}
+
+  // This class is the configuration for the state. It holds the values (in this
+  // case the title) provided by the parent (in this case the App widget) and
+  // used by the build method of the State. Fields in a Widget subclass are
+  // always marked "final".
+
+class _GameTimeState extends State<GameTime> {
+  @override
+  Widget build(BuildContext context) {  //builds the main menu widget
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Hang-Out!'),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            buildNavButton(context, 'Back to Main Menu', const MainMenu()),
           ],
         ),
       ),
