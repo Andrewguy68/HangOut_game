@@ -45,4 +45,23 @@ class NavStart {
         ),
       );
     }
+
+
+    Widget rectangle(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Container(
+          padding: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.black, width: 2),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Text(
+              '1. \n2. \n3. \n4. \n5. \n6. \n7. \n8. \n9. \n10.',
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+          ),
+        ),
+    );
+  }
 }

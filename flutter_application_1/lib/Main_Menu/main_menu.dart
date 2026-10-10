@@ -28,6 +28,7 @@ class _MainMenuState extends State<MainMenu> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            
             NavStart().buildNavButton(context, 'Start Game', const GameTime()),
             NavStart().buildNavButton(context, 'Sign Out', const Login()),
           ],
