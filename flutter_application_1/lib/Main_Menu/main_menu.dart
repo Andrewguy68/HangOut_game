@@ -21,7 +21,7 @@ class _MainMenuState extends State<MainMenu> {
   Widget build(BuildContext context) {  //builds the main menu widget
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Leaderboard'),
+        title: const Text('Hang-Out!'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: Center(

@@ -10,6 +10,10 @@ class NavStart {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: ElevatedButton(
         onPressed: () {
+          Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => destination),
+        );
         }, key: Key(label),
         child: Text(label),
       ),
@@ -34,8 +38,8 @@ class NavStart {
       return Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: ElevatedButton(
-          onPressed: () async {
-            await AuthService().signUp('username', 'password');
+          onPressed: () {
+            AuthService().signUp('username', 'password');
           }, key: Key(label),
           child: Text(label),
         ),

@@ -22,36 +22,42 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {  //Builds the login page widget
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Hang-Out!'),
+        title: const Text('Log In'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextField(
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Username',
-                labelStyle: TextStyle(fontSize: 20),
+        child: Padding(
+          padding: const EdgeInsets.all(100.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'username',
+                  labelStyle: TextStyle(fontSize: 20),
+                  
+                ),
               ),
-            ),
-            TextField(
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Password',
+              const SizedBox(height: 10.0),
+              TextField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'password',
+                  labelStyle: TextStyle(fontSize: 20),
+                ),
               ),
-            ),
-            NavStart().buildLogButton(context, 'Log In', const MainMenu()),
-            NavStart().buildNavButton(context, 'Sign Up', const Signup()),
+              NavStart().buildLogButton(context, 'Log In', const MainMenu()),
+              NavStart().buildNavButton(context, 'Sign Up', const Signup()),
 
 
-          ],
+            ],
+          ),
         ),
       ),
-    );
+      );
+    }
   }
-}
 
 class Signup extends StatefulWidget {
   const Signup({super.key});
@@ -70,27 +76,34 @@ class _SignupState extends State<Signup> {
   Widget build(BuildContext context) {  //Builds the signup page widget
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Hang-Out!'),
+        title: const Text('Sign Up!'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextField(
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Username',
+        child: Padding(
+          padding: const EdgeInsets.all(100.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Username',
+                  labelStyle: TextStyle(fontSize: 20),
+                  
+                ),
               ),
-            ),
-            TextField(
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Password',
+
+              TextField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Password',
+                  labelStyle: TextStyle(fontSize: 20),
+                ),
               ),
-            ),
-            NavStart().buildSignButton(context, 'Sign Up', const Login()),
-          ],
+              NavStart().buildSignButton(context, 'Sign Up', const Login()),
+            ],
+          ),
         ),
       ),
     );
