@@ -34,23 +34,22 @@ class _LoginState extends State<Login> {
               TextField(
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'username',
+                  labelText: 'Username',
                   labelStyle: TextStyle(fontSize: 20),
                   
                 ),
               ),
-              const SizedBox(height: 10.0),
+              const SizedBox(height: 20.0),
               TextField(
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'password',
+                  labelText: 'Password',
                   labelStyle: TextStyle(fontSize: 20),
                 ),
               ),
               NavStart().buildLogButton(context, 'Log In', const MainMenu()),
               NavStart().buildNavButton(context, 'Sign Up', const Signup()),
-
-
+              NavStart().buildNavButton(context, 'Bypass Login', const MainMenu()),
             ],
           ),
         ),
@@ -76,7 +75,7 @@ class _SignupState extends State<Signup> {
   Widget build(BuildContext context) {  //Builds the signup page widget
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sign Up!'),
+        title: const Text('Sign Up'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: Center(
@@ -93,7 +92,7 @@ class _SignupState extends State<Signup> {
                   
                 ),
               ),
-
+              const SizedBox(height: 20.0),
               TextField(
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
