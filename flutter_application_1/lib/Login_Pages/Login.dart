@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_application_1/Widget_Setup/widgit_build.dart';
 import 'package:flutter_application_1/Main_Menu/main_menu.dart';
+import 'package:flutter_application_1/auth_service.dart';
 
 
 
@@ -29,7 +29,23 @@ class _LoginState extends State<Login> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            NavStart().buildNavButton(context, 'Log In', const MainMenu()),
+            TextField(
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Username',
+                labelStyle: TextStyle(fontSize: 20),
+              ),
+            ),
+            TextField(
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Password',
+              ),
+            ),
+            NavStart().buildLogButton(context, 'Log In', const MainMenu()),
+            NavStart().buildNavButton(context, 'Sign Up', const Signup()),
+
+
           ],
         ),
       ),
@@ -61,7 +77,19 @@ class _SignupState extends State<Signup> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            NavStart().buildNavButton(context, 'Sign Up', const Login()),
+            TextField(
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Username',
+              ),
+            ),
+            TextField(
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Password',
+              ),
+            ),
+            NavStart().buildSignButton(context, 'Sign Up', const Login()),
           ],
         ),
       ),
