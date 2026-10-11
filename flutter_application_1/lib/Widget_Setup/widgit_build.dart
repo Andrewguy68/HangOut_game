@@ -1,67 +1,67 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_application_1/auth_service.dart';
 
 class NavStart {
-  @override
-
-  Widget buildNavButton(BuildContext context, String label, Widget destination) { // Builds a navigation button widget which creates all of the needed elevated buttons for this code.
+  Widget buildNavButton(
+    BuildContext context,
+    String label,
+    Widget destination,
+  ) {
+    // Builds a navigation button widget which creates all of the needed elevated buttons for this code.
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: ElevatedButton(
         onPressed: () {
           Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => destination),
-        );
-        }, key: Key(label),
+            context,
+            MaterialPageRoute(builder: (context) => destination),
+          );
+        },
+        key: Key(label),
         child: Text(label),
       ),
     );
   }
 
-   Widget buildLogButton(BuildContext context, String label, Widget destination) { // Builds a navigation button widget which creates all of the needed elevated buttons for this code.
+  /// builds button that runs [onPressed] (log in, sign up, sign out).
+  /// while [loading] it is disabled and shows a spinner instead of the label.
+  Widget buildActionButton(
+    BuildContext context,
+    String label,
+    VoidCallback? onPressed, {
+    bool loading = false,
+    double verticalPadding = 8.0,
+  }) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 15.0),
+      padding: EdgeInsets.symmetric(vertical: verticalPadding),
       child: ElevatedButton(
-        onPressed: () async {
-          await AuthService().logIn('username', 'password');
-        }, key: Key(label),
-        child: Text(label),
+        onPressed: loading ? null : onPressed,
+        key: Key(label),
+        child: loading
+            ? const SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(strokeWidth: 2),
+              )
+            : Text(label),
       ),
     );
   }
 
-
-
-    Widget buildSignButton(BuildContext context, String label, Widget destination) { // Builds a navigation button widget which creates all of the needed elevated buttons for this code.
-      return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 15.0),
-        child: ElevatedButton(
-          onPressed: () {
-            AuthService().signUp('username', 'password');
-          }, key: Key(label),
-          child: Text(label),
-        ),
-      );
-    }
-
-
-    Widget rectangle(BuildContext context) {
+  Widget rectangle(BuildContext context) {
     return Scaffold(
       body: Center(
         child: Container(
           padding: EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.black, width: 2),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Text(
-              '1. \n2. \n3. \n4. \n5. \n6. \n7. \n8. \n9. \n10.',
-              style: TextStyle(color: Colors.white, fontSize: 20),
-            ),
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.black, width: 2),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Text(
+            '1. \n2. \n3. \n4. \n5. \n6. \n7. \n8. \n9. \n10.',
+            style: TextStyle(color: Colors.white, fontSize: 20),
           ),
         ),
+      ),
     );
   }
 }
