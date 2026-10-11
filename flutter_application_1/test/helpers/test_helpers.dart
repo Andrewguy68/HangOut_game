@@ -1,18 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-/// wraps widget in MaterialApp so Navigator, Theme and Scaffold work.
-Widget wrap(Widget child) => MaterialApp(home: child);
+import 'package:flutter_application_1/auth_scope.dart';
+import 'package:flutter_application_1/auth_service.dart';
 
-/// gives the test tall logical screen (1200x2000) so padded layouts such as
-/// login (100px padding on all sides) don't overflow the default 800x600.
+import 'fake_auth_service.dart';
+
+Widget wrap(Widget child, {AuthService? auth}) => AuthScope(
+  service: auth ?? FakeAuthService(),
+  child: MaterialApp(home: child),
+);
+
 void useTallScreen(WidgetTester tester) {
   tester.view.physicalSize = const Size(1200, 2000);
   tester.view.devicePixelRatio = 1.0;
   addTearDown(tester.view.reset);
 }
 
-/// throwaway destination used to test navigation in isolation.
+Future<void> typeCredentials(
+  WidgetTester tester,
+  String username,
+  String password,
+) async {
+  await tester.enterText(find.widgetWithText(TextField, 'Username'), username);
+  await tester.enterText(find.widgetWithText(TextField, 'Password'), password);
+}
+
 class TestDestination extends StatelessWidget {
   const TestDestination({super.key});
 
