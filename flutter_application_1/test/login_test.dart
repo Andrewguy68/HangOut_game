@@ -1,9 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:flutter_application_1/Login_Pages/Login.dart';
 import 'package:flutter_application_1/Main_Menu/main_menu.dart';
 
+import 'helpers/fake_auth_service.dart';
 import 'helpers/test_helpers.dart';
 
 void main() {
@@ -27,6 +29,16 @@ void main() {
       expect(find.widgetWithText(TextField, 'Password'), findsOneWidget);
     });
 
+    testWidgets('hides the password while typing', (tester) async {
+      useTallScreen(tester);
+      await tester.pumpWidget(wrap(const Login()));
+
+      final password = tester.widget<TextField>(
+        find.widgetWithText(TextField, 'Password'),
+      );
+      expect(password.obscureText, isTrue);
+    });
+
     testWidgets('shows Log In, Sign Up and Bypass Login buttons', (
       tester,
     ) async {
@@ -39,21 +51,46 @@ void main() {
       expect(find.byType(ElevatedButton), findsNWidgets(3));
     });
 
-    testWidgets('fields accept typed text', (tester) async {
+    testWidgets('empty fields show messages and do not call logIn', (
+      tester,
+    ) async {
       useTallScreen(tester);
-      await tester.pumpWidget(wrap(const Login()));
+      final auth = FakeAuthService();
+      await tester.pumpWidget(wrap(const Login(), auth: auth));
 
-      await tester.enterText(
-        find.widgetWithText(TextField, 'Username'),
-        'ameksa',
-      );
-      await tester.enterText(
-        find.widgetWithText(TextField, 'Password'),
-        'secret123',
-      );
+      await tester.tap(find.byKey(const Key('Log In')));
+      await tester.pumpAndSettle();
 
-      expect(find.text('ameksa'), findsOneWidget);
-      expect(find.text('secret123'), findsOneWidget);
+      expect(find.text('Enter your username'), findsOneWidget);
+      expect(find.text('Enter your password'), findsOneWidget);
+      expect(auth.logInCalls, isEmpty);
+    });
+
+    testWidgets('passes the typed credentials to AuthService.logIn', (
+      tester,
+    ) async {
+      useTallScreen(tester);
+      final auth = FakeAuthService();
+      await tester.pumpWidget(wrap(const Login(), auth: auth));
+
+      await typeCredentials(tester, 'ameksa', 'secret123');
+      await tester.tap(find.byKey(const Key('Log In')));
+      await tester.pumpAndSettle();
+
+      expect(auth.logInCalls, [('ameksa', 'secret123')]);
+    });
+
+    testWidgets('shows a friendly message when logIn fails', (tester) async {
+      useTallScreen(tester);
+      final auth = FakeAuthService()
+        ..logInError = FirebaseAuthException(code: 'wrong-password');
+      await tester.pumpWidget(wrap(const Login(), auth: auth));
+
+      await typeCredentials(tester, 'ameksa', 'nope-nope');
+      await tester.tap(find.byKey(const Key('Log In')));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Incorrect username or password.'), findsOneWidget);
     });
 
     testWidgets('Sign Up navigates to the Signup page', (tester) async {

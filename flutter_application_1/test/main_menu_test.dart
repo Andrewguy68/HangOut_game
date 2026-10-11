@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:flutter_application_1/Main_Menu/main_menu.dart';
 import 'package:flutter_application_1/Game_Time/game_page.dart';
-import 'package:flutter_application_1/Login_Pages/Login.dart';
+import 'package:flutter_application_1/Main_Menu/main_menu.dart';
 
+import 'helpers/fake_auth_service.dart';
 import 'helpers/test_helpers.dart';
 
 void main() {
@@ -38,13 +38,17 @@ void main() {
       expect(find.byType(GameTime), findsOneWidget);
     });
 
-    testWidgets('Sign Out navigates to Login', (tester) async {
-      await tester.pumpWidget(wrap(const MainMenu()));
+    testWidgets('Sign Out logs the user out through AuthService', (
+      tester,
+    ) async {
+      final auth = FakeAuthService(signedInUser: FakeUser('abc'));
+      await tester.pumpWidget(wrap(const MainMenu(), auth: auth));
 
       await tester.tap(find.byKey(const Key('Sign Out')));
       await tester.pumpAndSettle();
 
-      expect(find.byType(Login), findsOneWidget);
+      expect(auth.logOutCalls, 1);
+      expect(auth.currentUser, isNull);
     });
   });
 }

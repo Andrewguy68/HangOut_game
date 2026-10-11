@@ -7,7 +7,6 @@ import 'helpers/test_helpers.dart';
 
 typedef ButtonBuilder = Widget Function(BuildContext, String, Widget);
 
-/// mounts one NavStart button builder with the label 'Go'.
 Future<void> pumpButton(WidgetTester tester, ButtonBuilder build) {
   return tester.pumpWidget(
     wrap(
@@ -20,7 +19,39 @@ Future<void> pumpButton(WidgetTester tester, ButtonBuilder build) {
   );
 }
 
-/// finds padding with the given vertical padding.
+Future<void> pumpAction(
+  WidgetTester tester, {
+  VoidCallback? onPressed,
+  bool loading = false,
+  double? verticalPadding,
+}) {
+  return tester.pumpWidget(
+    wrap(
+      Scaffold(
+        body: Builder(
+          builder: (context) {
+            final nav = NavStart();
+            return verticalPadding == null
+                ? nav.buildActionButton(
+                    context,
+                    'Go',
+                    onPressed,
+                    loading: loading,
+                  )
+                : nav.buildActionButton(
+                    context,
+                    'Go',
+                    onPressed,
+                    loading: loading,
+                    verticalPadding: verticalPadding,
+                  );
+          },
+        ),
+      ),
+    ),
+  );
+}
+
 Finder paddedBy(double vertical) => find.byWidgetPredicate(
   (w) => w is Padding && w.padding == EdgeInsets.symmetric(vertical: vertical),
 );
@@ -76,45 +107,70 @@ void main() {
     });
   });
 
-  group('NavStart.buildLogButton', () {
+  group('NavStart.buildActionButton', () {
     testWidgets('renders an ElevatedButton with the given label and key', (
       tester,
     ) async {
-      await pumpButton(tester, NavStart().buildLogButton);
+      await pumpAction(tester, onPressed: () {});
 
       expect(find.byType(ElevatedButton), findsOneWidget);
       expect(find.text('Go'), findsOneWidget);
       expect(find.byKey(const Key('Go')), findsOneWidget);
     });
 
-    testWidgets('wraps the button in 15px vertical padding', (tester) async {
-      await pumpButton(tester, NavStart().buildLogButton);
+    testWidgets('uses 8px vertical padding by default', (tester) async {
+      await pumpAction(tester, onPressed: () {});
+
+      expect(
+        find.ancestor(of: find.byType(ElevatedButton), matching: paddedBy(8)),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('uses the given vertical padding', (tester) async {
+      await pumpAction(tester, onPressed: () {}, verticalPadding: 15);
 
       expect(
         find.ancestor(of: find.byType(ElevatedButton), matching: paddedBy(15)),
         findsOneWidget,
       );
     });
-  });
 
-  group('NavStart.buildSignButton', () {
-    testWidgets('renders an ElevatedButton with the given label and key', (
+    testWidgets('calls onPressed when tapped', (tester) async {
+      var taps = 0;
+      await pumpAction(tester, onPressed: () => taps++);
+
+      await tester.tap(find.byKey(const Key('Go')));
+      await tester.pump();
+
+      expect(taps, 1);
+    });
+
+    testWidgets('is disabled when onPressed is null', (tester) async {
+      await pumpAction(tester);
+
+      expect(
+        tester.widget<ElevatedButton>(find.byKey(const Key('Go'))).onPressed,
+        isNull,
+      );
+    });
+
+    testWidgets('shows a spinner instead of the label while loading', (
       tester,
     ) async {
-      await pumpButton(tester, NavStart().buildSignButton);
+      var taps = 0;
+      await pumpAction(tester, onPressed: () => taps++, loading: true);
 
-      expect(find.byType(ElevatedButton), findsOneWidget);
-      expect(find.text('Go'), findsOneWidget);
-      expect(find.byKey(const Key('Go')), findsOneWidget);
-    });
-
-    testWidgets('wraps the button in 15px vertical padding', (tester) async {
-      await pumpButton(tester, NavStart().buildSignButton);
-
+      expect(find.byType(CircularProgressIndicator), findsOneWidget);
+      expect(find.text('Go'), findsNothing);
       expect(
-        find.ancestor(of: find.byType(ElevatedButton), matching: paddedBy(15)),
-        findsOneWidget,
+        tester.widget<ElevatedButton>(find.byKey(const Key('Go'))).onPressed,
+        isNull,
       );
+
+      await tester.tap(find.byKey(const Key('Go')), warnIfMissed: false);
+      await tester.pump();
+      expect(taps, 0);
     });
   });
 
