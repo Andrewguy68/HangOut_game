@@ -38,8 +38,8 @@ class NavStart {
         key: Key(label),
         child: loading
             ? const SizedBox(
-                width: 20,
-                height: 20,
+                width: 15,
+                height: 15,
                 child: CircularProgressIndicator(strokeWidth: 2),
               )
             : Text(label),
@@ -51,14 +51,14 @@ class NavStart {
     return Scaffold(
       body: Center(
         child: Container(
-          padding: EdgeInsets.all(20),
+          padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
             border: Border.all(color: Colors.black, width: 2),
             borderRadius: BorderRadius.circular(10),
           ),
           child: Text(
             '1. \n2. \n3. \n4. \n5.',
-            style: TextStyle(color: Colors.white, fontSize: 20),
+            style: TextStyle(color: Colors.white, fontSize: 12),
           ),
         ),
       ),
