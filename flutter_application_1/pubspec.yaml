@@ -37,6 +37,8 @@ dependencies:
   firebase_core: ^4.15.0
   firebase_auth: ^6.7.0
   cloud_firestore: ^6.10.0
+  sidebar_widget: ^0.1.0
+  pop_overlay: ^5.0.0
 
 dev_dependencies:
   flutter_test:
