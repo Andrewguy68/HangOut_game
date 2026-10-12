@@ -20,7 +20,7 @@ class _GameTimeState extends State<GameTime> {
   Widget build(BuildContext context) {  //builds the main menu widget
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Hang-Out!'),
+        title: const Text('Category and Opponent'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: Center(
@@ -28,7 +28,14 @@ class _GameTimeState extends State<GameTime> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             GameLogic(),
-            NavStart().letterInput(context, 'Add a Lettert', const MainMenu()),  //this will check the letter and call the letter input function
+            TextField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Enter a Letter',
+                  labelStyle: TextStyle(fontSize: 20),
+                ),
+              ),
+            NavStart().letterInput(context, 'Add a Letter', const MainMenu()),  //this will check the letter and call the letter input function
             NavStart().Solve(context, 'Solve', const MainMenu())  //this will check the word and call the solve function
           ],
         ),
