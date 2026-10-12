@@ -27,7 +27,7 @@ class _GameTimeState extends State<GameTime> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            GameLogic(),
+            //GameLogic(),
             TextField(
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
