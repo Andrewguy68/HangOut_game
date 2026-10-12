@@ -57,7 +57,7 @@ class NavStart {
             borderRadius: BorderRadius.circular(10),
           ),
           child: Text(
-            '1. \n2. \n3. \n4. \n5. \n6. \n7. \n8. \n9. \n10.',
+            '1. \n2. \n3. \n4. \n5.',
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
         ),
