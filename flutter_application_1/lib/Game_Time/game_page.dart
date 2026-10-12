@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_application_1/Game_Time/stick_man.dart';
 import 'package:flutter_application_1/Widget_Setup/widgit_build.dart';
 import 'package:flutter_application_1/Main_Menu/main_menu.dart';
 
@@ -31,6 +31,46 @@ class _GameTimeState extends State<GameTime> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class GameLogic extends StatefulWidget {
+  const GameLogic({super.key});
+
+  @override
+  State<GameLogic> createState() => _GameLogicState();
+}
+
+class _GameLogicState extends State<GameLogic> {
+  int frame = 0; // Current frame of the stick figure
+  bool draw = true; // Whether to draw the line or not
+  bool victory = false;
+
+  void nextFrame() {
+    setState(() {
+      if (frame < 6) {
+        frame++;
+      } else {
+        victory = true;
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        CustomPaint(
+          size: const Size(300, 300),
+          painter: drawMan(frame, draw, victory),
+        ),
+        ElevatedButton(
+          onPressed: nextFrame,
+          child: const Text('Next Frame'), //this is for testing. Once we have words we can replace this.
+        ),
+      ],
     );
   }
 }
