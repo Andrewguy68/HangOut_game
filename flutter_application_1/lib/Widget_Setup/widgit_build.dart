@@ -47,23 +47,7 @@ class NavStart {
     );
   }
 
-  Widget rectangle(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Container(
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.black, width: 2),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Text(
-            '1. \n2. \n3. \n4. \n5.',
-            style: TextStyle(color: Colors.white, fontSize: 12),
-          ),
-        ),
-      ),
-    );
-  }
+
 
 Widget letterInput(BuildContext context, String label, Widget destination) { // Builds a navigation button widget which creates all of the needed elevated buttons for this code.
   return Padding(
