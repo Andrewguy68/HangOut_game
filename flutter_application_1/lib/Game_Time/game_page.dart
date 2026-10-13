@@ -39,7 +39,7 @@ class _GameTimeState extends State<GameTime> {
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
-            GameLogic(),
+            GameLogic(word: widget.opponent.word),
             const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 50),

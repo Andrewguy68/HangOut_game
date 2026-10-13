@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/Game_Time/game_logic.dart';
 import 'package:flutter_application_1/Widget_Setup/widgit_build.dart';
-import 'package:flutter_application_1/Main_Menu/main_menu.dart';
 import 'package:flutter_application_1/auth_scope.dart';
 
 class GameOver extends StatefulWidget {
@@ -17,6 +15,12 @@ class GameOver extends StatefulWidget {
 // always marked "final".
 
 class _GameOverState extends State<GameOver> {
+  Future<void> _signOut() async {
+    await AuthScope.of(context).logOut();
+    if (!mounted) return;
+    Navigator.of(context).popUntil((route) => route.isFirst);
+  }
+
   @override
   Widget build(BuildContext context) {
     //builds the main menu widget
@@ -47,8 +51,7 @@ class _GameOverState extends State<GameOver> {
             ),
             
             const SizedBox(height: 20),
-            NavStart().buildNavButton(context, 'Back to Main Menu', const MainMenu()),  //this will check the letter and call the letter input function
-            //NavStart().buildActionButton(context, 'Sign Out', _signOut), //this will check the word and call the solve function
+            NavStart().buildActionButton(context, 'Sign Out', _signOut),
           ],
         ),
       ),

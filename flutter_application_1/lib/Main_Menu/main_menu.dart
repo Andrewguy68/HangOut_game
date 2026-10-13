@@ -4,7 +4,6 @@ import 'package:flutter_application_1/Main_Menu/add_word_dialog.dart';
 import 'package:flutter_application_1/Storage/word_scope.dart';
 import 'package:flutter_application_1/Storage/word_service.dart';
 import 'package:flutter_application_1/Widget_Setup/widgit_build.dart';
-import 'package:flutter_application_1/auth_scope.dart';
 import 'package:flutter_application_1/Leaderboard/leaderboard.dart';
 
 
@@ -25,14 +24,6 @@ class _MainMenuState extends State<MainMenu> {
   late final Future<List<({int rank, String username, int failedAttempts})>>
   _leaders = leaderboard.getLeaderboard();
   bool _starting = false;
-
-  Future<void> _signOut() async {
-    await AuthScope.of(context).logOut();
-    // AuthGate shows Login once the signed-out state arrives. If this menu was
-    // pushed on top of other pages, drop them so Login is what's visible.
-    if (!mounted) return;
-    Navigator.of(context).popUntil((route) => route.isFirst);
-  }
 
   Future<void> _addWord() async {
     final word = await showAddWordDialog(context);
@@ -134,7 +125,6 @@ class _MainMenuState extends State<MainMenu> {
                 loading: _starting,
               ),
               NavStart().buildActionButton(context, 'Add Word', _addWord),
-              NavStart().buildActionButton(context, 'Sign Out', _signOut),
             ],
           ),
         ),
