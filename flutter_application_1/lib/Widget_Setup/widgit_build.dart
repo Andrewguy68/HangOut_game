@@ -47,29 +47,6 @@ class NavStart {
     );
   }
 
-  Widget leaderboard(BuildContext context, String label) {
-    // Builds a leaderboard list widget.
-    return ListView(
-      padding: const EdgeInsets.all(8),
-      children: <Widget>[
-        Container(
-          height: 20,
-          color: Colors.blue[200],
-          child: const Center(child: Text('Entry A')),
-        ),
-        Container(
-          height: 50,
-          color: Colors.blue[200],
-          child: const Center(child: Text('Entry B')),
-        ),
-        Container(
-          height: 50,
-          color: Colors.blue[200],
-          child: const Center(child: Text('Entry C')),
-        ),
-      ],
-    );
-  }
 
   Widget letterInput(BuildContext context, String label, Widget destination) {
     // Builds a navigation button widget which creates all of the needed elevated buttons for this code.
