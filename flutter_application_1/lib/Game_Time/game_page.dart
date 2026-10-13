@@ -26,9 +26,9 @@ class _GameTimeState extends State<GameTime> {
       appBar: AppBar(
         title: Text(
           'Somehow get Opponent!',
-          style: Theme.of(context).textTheme.headlineMedium,
-          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.headlineLarge,
         ),
+        centerTitle: true,
       ),
       body: Center(
         child: Column(

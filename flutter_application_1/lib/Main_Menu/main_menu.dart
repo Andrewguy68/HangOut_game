@@ -69,9 +69,10 @@ class _MainMenuState extends State<MainMenu> {
       appBar: AppBar(
         title: Text(
           'Hang-Out!',
-          style: Theme.of(context).textTheme.headlineMedium,
+          style: Theme.of(context).textTheme.headlineLarge,
           textAlign: TextAlign.center,
         ),
+        centerTitle: true,
       ),
       body: Center(
         child: SingleChildScrollView(

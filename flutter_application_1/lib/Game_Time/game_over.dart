@@ -22,8 +22,12 @@ class _GameOverState extends State<GameOver> {
     //builds the main menu widget
     return Scaffold(
       appBar: AppBar(
-        title: const Text('GameOver!'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text(
+          'Game Over',
+          style: Theme.of(context).textTheme.headlineLarge,
+          textAlign: TextAlign.center,
+        ),
+        centerTitle: true,
       ),
       body: Center(
         child: Column(

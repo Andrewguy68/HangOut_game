@@ -16,9 +16,10 @@ class Login extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'Login',
-          style: Theme.of(context).textTheme.headlineMedium,
+          style: Theme.of(context).textTheme.headlineLarge,
           textAlign: TextAlign.center,
         ),
+        centerTitle: true,
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -33,12 +34,6 @@ class Login extends StatelessWidget {
                 AuthScope.of(context).logIn(username, password),
             footer: [
               NavStart().buildNavButton(context, 'Sign Up', const Signup()),
-              if (kDebugMode)
-                NavStart().buildNavButton(
-                  context,
-                  'Bypass Login',
-                  const MainMenu(),
-                ),
             ],
           ),
         ),
@@ -56,9 +51,10 @@ class Signup extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'Sign Up',
-          style: Theme.of(context).textTheme.headlineMedium,
+          style: Theme.of(context).textTheme.headlineLarge,
           textAlign: TextAlign.center,
         ),
+        centerTitle: true,
       ),
       body: Center(
         child: SingleChildScrollView(
