@@ -30,7 +30,7 @@ class _GameLogicState extends State<GameLogic> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         CustomPaint(
-          size: const Size(200, 200),
+          size: const Size(300, 300),
           painter: drawMan(frame, draw, victory),
         ),
         ElevatedButton(

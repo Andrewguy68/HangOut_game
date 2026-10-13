@@ -16,10 +16,10 @@ class drawMan extends CustomPainter {
     
 
     while (draw) {
-      canvas.drawLine(Offset(25, 200), Offset(125, 200), paint); // Base
-      canvas.drawLine(Offset(75, 200), Offset(75, 50), paint); // Pole
-      canvas.drawLine(Offset(75, 50), Offset(150, 50), paint); // Top beam
-      canvas.drawLine(Offset(150, 50), Offset(150, 75), paint); // Rope
+      canvas.drawLine(Offset(2, 200), Offset(125, 200), paint); // Base
+      canvas.drawLine(Offset(7, 200), Offset(75, 50), paint); // Pole
+      canvas.drawLine(Offset(7, 50), Offset(150, 50), paint); // Top beam
+      canvas.drawLine(Offset(15, 50), Offset(150, 75), paint); // Rope
 
       if (frame == 1) {
         canvas.drawCircle(Offset(150, 100), 25, paint); // Head

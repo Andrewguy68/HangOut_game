@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import "package:flutter_application_1/storage/word_storage.dart";
 
 class Leaderboard {
   // getresults{}
@@ -15,8 +14,8 @@ class Leaderboard {
     var wordResults = await db.collection('wordResults').get();
 
     for (var i in wordResults.docs) {
-      String username = i['username'];
-      int attempts = i['failedAttempts'];
+      String username = i['username'] as String;
+      int attempts = (i['failedAttempts'] as num).toInt();
 
       results[username] = (results[username] ?? 0) + attempts;
     }

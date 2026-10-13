@@ -29,15 +29,15 @@ class _GameTimeState extends State<GameTime> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             GameLogic(),
-            //TextField(
-                //decoration: const InputDecoration(
-                  //border: OutlineInputBorder(),
-                  //labelText: 'Enter a Letter',
-                  //labelStyle: TextStyle(fontSize: 20),
-                //),
-              //),
-            //NavStart().letterInput(context, 'Add a Letter', const MainMenu()),  //this will check the letter and call the letter input function
-            //NavStart().Solve(context, 'Solve', const MainMenu())  //this will check the word and call the solve function
+            TextField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Enter a Letter',
+                  labelStyle: TextStyle(fontSize: 20),
+                ),
+              ),
+            NavStart().letterInput(context, 'Add a Letter', const MainMenu()),  //this will check the letter and call the letter input function
+            NavStart().Solve(context, 'Solve', const MainMenu())  //this will check the word and call the solve function
           ],
         ),
       ),

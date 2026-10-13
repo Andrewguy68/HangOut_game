@@ -19,6 +19,7 @@ class MainMenu extends StatefulWidget {
 // always marked "final".
 
 class _MainMenuState extends State<MainMenu> {
+  final Leaderboard leaderboard = Leaderboard();
   Future<void> _signOut() async {
     await AuthScope.of(context).logOut();
     // AuthGate shows Login once the signed-out state arrives. If this menu was
@@ -47,8 +48,36 @@ class _MainMenuState extends State<MainMenu> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const SizedBox(height: 20),
+            const Text("Leaderboard", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+            const SizedBox(height: 10),
+            FutureBuilder<List<({int rank, String username, int failedAttempts})>>(
+              future: leaderboard.getLeaderboard(),
+              builder:(context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting){
+                  return const Padding(padding: EdgeInsets.all(10), child: CircularProgressIndicator(),);
+                } 
+                if (!snapshot.hasData || snapshot.data == null || snapshot.data!.isEmpty) {
+                  return const Text("No one has made it on the Leaderboard");
+                }
+                final leaders = snapshot.data!;
+                return ListView.builder(
+                  itemCount: leaders.length,
+                  itemBuilder: (context, index){
+                    final player = leaders[index];
+                    return Card(
+                      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5,),
+                      child: ListTile(
+                        leading: CircleAvatar(child: Text ('${player.rank}')),
+                        title: Text(player.username),
+                        subtitle: Text ("Failed Attempts: ${player.failedAttempts}",),
+                      ),
+                    );
+                  },);
+                
+              }
+            ),
             //LeaderboardDisplay(entries: entries),
             NavStart().buildNavButton(context, 'Start Game', const GameTime()),
             NavStart().buildActionButton(context, 'Add Word', _addWord),
