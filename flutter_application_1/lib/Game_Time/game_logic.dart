@@ -11,15 +11,11 @@ class GameLogic extends StatefulWidget {
 
 class _GameLogicState extends State<GameLogic> {
   int frame = 0; // Current frame of the stick figure
-  bool draw = true; // Whether to draw the line or not
-  bool victory = false;
 
   void nextFrame() {
     setState(() {
       if (frame < 6) {
         frame++;
-      } else {
-        victory = true;
       }
     });
   }
@@ -31,7 +27,7 @@ class _GameLogicState extends State<GameLogic> {
       children: [
         CustomPaint(
           size: const Size(300, 300),
-          painter: drawMan(frame, draw, victory),
+          painter: drawMan(frame),
         ),
         ElevatedButton(
           onPressed: nextFrame,
