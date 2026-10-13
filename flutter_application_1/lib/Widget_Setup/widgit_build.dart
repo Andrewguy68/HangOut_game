@@ -53,7 +53,7 @@ class NavStart {
 
 Widget letterInput(BuildContext context, String label, Widget destination) { // Builds a navigation button widget which creates all of the needed elevated buttons for this code.
   return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 8.0), // good for now, implement with logic later
+    padding: const EdgeInsets.symmetric(vertical: 5.0), // good for now, implement with logic later
     child: ElevatedButton(
       onPressed: () {
         Navigator.push(
@@ -70,7 +70,7 @@ Widget letterInput(BuildContext context, String label, Widget destination) { // 
     // Builds a navigation button widget which creates all of the needed elevated buttons for this code.
     return Padding(
       padding: const EdgeInsets.symmetric(
-        vertical: 8.0,
+        vertical: 5.0,
       ), // good for now, implement with logic later
       child: ElevatedButton(
         onPressed: () {
