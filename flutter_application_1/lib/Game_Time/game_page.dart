@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Game_Time/game_logic.dart';
+import 'package:flutter_application_1/Storage/opponent.dart';
 import 'package:flutter_application_1/Widget_Setup/widgit_build.dart';
 import 'package:flutter_application_1/Main_Menu/main_menu.dart';
 
 class GameTime extends StatefulWidget {
-  const GameTime({super.key});
+  const GameTime({super.key, required this.opponent});
+
+  final Opponent opponent;
 
   @override
   State<GameTime> createState() => _GameTimeState();
@@ -28,6 +31,11 @@ class _GameTimeState extends State<GameTime> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text(
+              'You are playing against ${widget.opponent.username}',
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
             GameLogic(),
             const SizedBox(height: 20),
             Padding(
@@ -41,8 +49,16 @@ class _GameTimeState extends State<GameTime> {
               ),
             ),
             const SizedBox(height: 20),
-            NavStart().letterInput(context, 'Add a Letter', const MainMenu()),  //this will check the letter and call the letter input function
-            NavStart().Solve(context, 'Solve', const MainMenu())  //this will check the word and call the solve function
+            NavStart().letterInput(
+              context,
+              'Add a Letter',
+              const MainMenu(),
+            ), //this will check the letter and call the letter input function
+            NavStart().Solve(
+              context,
+              'Solve',
+              const MainMenu(),
+            ), //this will check the word and call the solve function
           ],
         ),
       ),

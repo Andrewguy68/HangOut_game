@@ -1,11 +1,13 @@
 import 'dart:async';
 
+import 'package:flutter_application_1/Storage/opponent.dart';
 import 'package:flutter_application_1/Storage/word_storage.dart';
 
 class FakeWordStorage implements WordStorage {
-  FakeWordStorage({this.lastSubmission});
+  FakeWordStorage({this.lastSubmission, this.opponent});
 
   DateTime? lastSubmission;
+  Opponent? opponent;
 
   final List<(String, String)> saves = [];
 
@@ -28,4 +30,8 @@ class FakeWordStorage implements WordStorage {
     final error = saveError;
     if (error != null) throw error;
   }
+
+  @override
+  Future<Opponent?> randomOpponent({required String excludeUid}) async =>
+      opponent;
 }
