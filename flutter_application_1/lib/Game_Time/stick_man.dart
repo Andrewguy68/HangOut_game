@@ -21,22 +21,22 @@ class drawMan extends CustomPainter {
       canvas.drawCircle(Offset(150, 75), 25, paint); // Head
     }
     if (frame >= 2) {
-      canvas.drawLine(Offset(150, 100), Offset(150, 150), paint); // Body
+      canvas.drawLine(Offset(150, 100), Offset(150, 175), paint); // Body
       
     }
-    else if (frame >= 3) {
-      canvas.drawLine(Offset(150, 115), Offset(125, 115), paint); // Left arm
+    if (frame >= 3) {
+      canvas.drawLine(Offset(150, 115), Offset(125, 150), paint); // Left arm
 
     }
-    else if (frame >= 4) {
-      canvas.drawLine(Offset(150, 115), Offset(175, 115), paint); // Right arm
+    if (frame >= 4) {
+      canvas.drawLine(Offset(150, 115), Offset(175, 150), paint); // Right arm
 
     }
-    else if (frame >= 5) {
-      canvas.drawLine(Offset(150, 150), Offset(125, 175), paint); // Left leg
+    if (frame >= 5) {
+      canvas.drawLine(Offset(150, 175), Offset(125, 200), paint); // Left leg
     }
-    else if (frame >= 6) {
-      canvas.drawLine(Offset(150, 150), Offset(175, 175), paint); // Right leg
+    if (frame >= 6) {
+      canvas.drawLine(Offset(150, 175), Offset(175, 200), paint); // Right leg
     
     }
   }

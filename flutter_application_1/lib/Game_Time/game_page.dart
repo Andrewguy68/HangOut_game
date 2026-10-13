@@ -31,12 +31,13 @@ class _GameTimeState extends State<GameTime> {
             GameLogic(),
             const SizedBox(height: 20),
             TextField(
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Enter a Letter',
-                  labelStyle: TextStyle(fontSize: 20),
-                ),
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Enter a Letter',
+                labelStyle: TextStyle(fontSize: 20),
+                contentPadding: EdgeInsets.all(50.0),
               ),
+            ),
             NavStart().letterInput(context, 'Add a Letter', const MainMenu()),  //this will check the letter and call the letter input function
             NavStart().Solve(context, 'Solve', const MainMenu())  //this will check the word and call the solve function
           ],
