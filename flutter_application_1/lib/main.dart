@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           title: 'Hang-Out!',
           theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange, primary: Colors.amber, secondary: const Color.fromARGB(239, 249, 169, 94)),
             useMaterial3: true,
             textTheme: TextTheme(
               headlineLarge: GoogleFonts.honk(

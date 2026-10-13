@@ -33,6 +33,19 @@ class _GameOverState extends State<GameOver> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text(
+              "Congrats! You Win!",
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+            Text(
+              "You Lose!",
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+            Text(
+              "Your word was:  WORD!",
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+            
             const SizedBox(height: 20),
             NavStart().buildNavButton(context, 'Back to Main Menu', const MainMenu()),  //this will check the letter and call the letter input function
             //NavStart().buildActionButton(context, 'Sign Out', _signOut), //this will check the word and call the solve function

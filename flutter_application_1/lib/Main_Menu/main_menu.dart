@@ -80,9 +80,9 @@ class _MainMenuState extends State<MainMenu> {
             mainAxisSize: MainAxisSize.min,
             children: [
               const SizedBox(height: 20),
-              const Text(
+              Text(
                 "Leaderboard",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
               const SizedBox(height: 10),
               FutureBuilder<
