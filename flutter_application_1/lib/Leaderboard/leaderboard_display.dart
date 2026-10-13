@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'leaderboard.dart';
+import 'package:flutter_application_1/Leaderboard/leaderboard.dart';
 
 class LeaderboardDisplay extends StatelessWidget {
 	const LeaderboardDisplay({super.key, required this.entries});
@@ -21,10 +20,25 @@ class LeaderboardDisplay extends StatelessWidget {
 							radius: 14,
 							child: Text('${i + 1}'),
 						),
-						title: Text((board[i])),
+						title: Text(display(board[i])),
 					),
 			],
 		);
+	}
+	String display(dynamic entry) {
+		if (entry is Map) {
+			final name = entry['rank'] ?? entry['username'] ?? entry['failedAttempts'];
+			if (name != null) return '$name';
+		}
+
+		try {
+			final name = entry.name;
+			if (name != null) return '$name';
+			if (name != null) return name.toString();
+		} catch (_) {
+
+		}
+		return entry?.toString() ?? '';
 	}
 }
 
