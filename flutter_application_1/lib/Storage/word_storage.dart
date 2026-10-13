@@ -6,9 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 ///   word:        'apple'          (lowercase)
 ///   username:    'Ameksa'         (copied from users/{uid})
 ///   submittedAt: <server time>    (used for the 24 hour limit)
-///
-/// Adding a new word replaces the old one, so "play against a random
-/// player's word" is just "pick a random document from `words`".
+
 class WordStorage {
   final _db = FirebaseFirestore.instance;
 
@@ -19,9 +17,7 @@ class WordStorage {
     return submittedAt is Timestamp ? submittedAt.toDate() : null;
   }
 
-  /// Saves [word] as [uid]'s current word. The Firestore rules (see the
-  /// notes next to this feature) reject this if the 24 hour limit has not
-  /// passed, so the limit holds even if someone bypasses the app.
+  /// Saves [word] as [uid]'s current word.
   Future<void> saveWord({required String uid, required String word}) async {
     final profile = await _db.collection('users').doc(uid).get();
     final username = profile.data()?['username'];
