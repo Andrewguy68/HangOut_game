@@ -1,6 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Game_Time/stick_man.dart';
 import 'package:flutter_application_1/Storage/word_storage.dart';
+import 'package:flutter_application_1/storage/opponent.dart';
+import 'package:flutter_application_1/Game_Time/game_page.dart';
 
 
 class GameLogic extends StatefulWidget {
@@ -19,20 +23,27 @@ class _GameLogicState extends State<GameLogic> {
   bool gameOver = false;
   int failedAttempts = 0;
 
+  final Opponent opponent;
   List<String> guessedLetter = [];
 
   WordStorage storage = WordStorage();
   
   String username = 'username';
 
-  Future<void> loadWord() {
-    List<String> words = await storage.getWords();
 
-    if (word.isNotEmpty){
-      //logic
-    }
+//gets word
+  void loadWord() {
+   // List<String> words = storage.getWords();
+
+   // if (words.isNotEmpty){
+   //   var random = Random();
+   //   String randomWord = words[random.nextInt(words.length)];
+   //   return randomWord;
+   // }
+    //List<String, String> opponent = Opponent(username: username, word: word);
+    String word = opponent.word;
   }
-
+// checks word/victory
   void checkGuess(){
     guess = guess.toLowerCase().trim();
 
@@ -53,6 +64,7 @@ class _GameLogicState extends State<GameLogic> {
     if(gameOver){
       storage.saveWordResults(username, word, failedAttempts);
     }
+
   }
 
   void nextFrame() {
@@ -65,9 +77,25 @@ class _GameLogicState extends State<GameLogic> {
     });
   }
   void game() {
+    word = loadWord(); 
+    int lives = 0;
+    int frame = 0;
+    for (var i = 0; i < word.length; i++ ){
+      if (guess == word){
+        victory = true;
+      }
+      else if (guess[0] == word[i]){
+        word[i] = guess[0];
+      }
+      else{
+        guessedLetter.add(guess);
+        lives++;
+        frame++;
+      }
 
-
+    }
   }
+  
   @override
   Widget build(BuildContext context) {
     return Column(
