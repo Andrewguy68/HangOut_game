@@ -12,7 +12,7 @@ class NavStart {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: ElevatedButton(
         onPressed: () {
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => destination),
           );
@@ -54,7 +54,7 @@ Widget letterInput(BuildContext context, String label, Widget destination) { // 
     padding: const EdgeInsets.symmetric(vertical: 5.0), // good for now, implement with logic later
     child: ElevatedButton(
       onPressed: () {
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => destination),
         );
@@ -72,7 +72,7 @@ Widget letterInput(BuildContext context, String label, Widget destination) { // 
       ), // good for now, implement with logic later
       child: ElevatedButton(
         onPressed: () {
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => destination),
           );

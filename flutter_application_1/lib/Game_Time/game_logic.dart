@@ -1,5 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Game_Time/stick_man.dart';
+import 'package:flutter_application_1/Game_Time/game_over.dart';
+
 
 
 class GameLogic extends StatefulWidget {
@@ -16,6 +20,16 @@ class _GameLogicState extends State<GameLogic> {
     setState(() {
       if (frame < 6) {
         frame++;
+      }
+      if (frame >= 6){
+        Timer(Duration(seconds: 3), () {
+        Navigator.pushReplacement(
+          context, 
+          MaterialPageRoute(
+            builder:(context) => const GameOver(),
+          ),
+        );
+        });
       }
     });
   }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class drawMan extends CustomPainter {
   final int frame; // Animation value to control line position
-  drawMan(this.frame);
+  drawMan(this.frame,);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -37,7 +37,6 @@ class drawMan extends CustomPainter {
     }
     if (frame >= 6) {
       canvas.drawLine(Offset(150, 175), Offset(175, 200), paint); // Right leg
-    
     }
   }
 
