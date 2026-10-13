@@ -5,29 +5,46 @@ import 'firebase_options.dart';
 import 'auth_gate.dart';
 import 'auth_scope.dart';
 import 'auth_service.dart';
+import 'Storage/word_scope.dart';
+import 'Storage/word_service.dart';
+import 'Storage/word_storage.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(MyApp(authService: AuthService()));
+  final authService = AuthService();
+  runApp(
+    MyApp(
+      authService: authService,
+      wordService: WordService(storage: WordStorage(), auth: authService),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key, required this.authService});
+  const MyApp({
+    super.key,
+    required this.authService,
+    required this.wordService,
+  });
 
   final AuthService authService;
+  final WordService wordService;
 
   @override
   Widget build(BuildContext context) {
     return AuthScope(
       service: authService,
-      child: MaterialApp(
-        title: 'Hang-Out!',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
-          useMaterial3: true,
+      child: WordScope(
+        service: wordService,
+        child: MaterialApp(
+          title: 'Hang-Out!',
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
+            useMaterial3: true,
+          ),
+          home: const AuthGate(),
         ),
-        home: const AuthGate(),
       ),
     );
   }

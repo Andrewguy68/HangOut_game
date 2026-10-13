@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_application_1/Game_Time/game_page.dart';
-import 'package:flutter_application_1/Leaderboard/leaderboard_display.dart';
+import 'package:flutter_application_1/Main_Menu/add_word_dialog.dart';
 import 'package:flutter_application_1/Widget_Setup/widgit_build.dart';
 import 'package:flutter_application_1/auth_scope.dart';
 import 'package:flutter_application_1/Leaderboard/leaderboard.dart';
@@ -27,6 +27,16 @@ class _MainMenuState extends State<MainMenu> {
     Navigator.of(context).popUntil((route) => route.isFirst);
   }
 
+  Future<void> _addWord() async {
+    final word = await showAddWordDialog(context);
+    if (!mounted || word == null) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('"$word" saved! Other players can now play against it.'),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     //builds the main menu widget
@@ -41,6 +51,7 @@ class _MainMenuState extends State<MainMenu> {
           children: [
             //LeaderboardDisplay(entries: entries),
             NavStart().buildNavButton(context, 'Start Game', const GameTime()),
+            NavStart().buildActionButton(context, 'Add Word', _addWord),
             NavStart().buildActionButton(context, 'Sign Out', _signOut),
           ],
         ),

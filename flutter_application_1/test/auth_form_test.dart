@@ -149,8 +149,9 @@ void main() {
         tester,
         onSubmit: (u, p) async {
           attempts++;
-          if (attempts == 1)
+          if (attempts == 1) {
             throw FirebaseAuthException(code: 'wrong-password');
+          }
         },
       );
 
