@@ -20,16 +20,16 @@ class popUp extends StatelessWidget {
               const SizedBox(height: 30),
               ElevatedButton(
                 onPressed: () {
-                                  PopOverlay.addPop(
+                  PopOverlay.addPop(
                     PopOverlayContent(
                       id: 'overlay',
                       widget: Container(
                         padding: const EdgeInsets.all(16),
                         child: const Text('Add a word'),
                         //child: const TextField(
-                          //decoration: InputDecoration(
-                            //hintText: 'Enter a word',
-                          //),
+                        //decoration: InputDecoration(
+                        //hintText: 'Enter a word',
+                        //),
                         //),
                       ),
                     ),
@@ -37,7 +37,6 @@ class popUp extends StatelessWidget {
                 },
                 child: const Text('Show Pop Overlay'),
               ),
-
             ],
           ),
         ),
