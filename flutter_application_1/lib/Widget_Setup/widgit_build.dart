@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Leaderboard/leaderboard.dart';
 
 class NavStart {
   Widget buildNavButton(
@@ -46,7 +49,6 @@ class NavStart {
       ),
     );
   }
-
 
 Widget letterInput(BuildContext context, String label, Widget destination) { // Builds a navigation button widget which creates all of the needed elevated buttons for this code.
   return Padding(
