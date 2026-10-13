@@ -1,9 +1,13 @@
+import 'dart:math';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Game_Time/game_over.dart';
 import 'package:flutter_application_1/Game_Time/stick_man.dart';
 import 'package:flutter_application_1/Storage/word_storage.dart';
+import 'package:flutter_application_1/storage/opponent.dart';
+import 'package:flutter_application_1/Game_Time/game_page.dart';
+import 'package:flutter_application_1/Game_Time/game_over.dart';
 
 class GameLogic extends StatefulWidget {
   const GameLogic({super.key, required this.word});
@@ -29,18 +33,18 @@ class _GameLogicState extends State<GameLogic> {
   String username = 'username';
 
   //gets word
-  void loadWord() {
-    // List<String> words = storage.getWords();
+  //   void loadWord() {
+  // List<String> words = storage.getWords();
 
-    // if (words.isNotEmpty){
-    //   var random = Random();
-    //   String randomWord = words[random.nextInt(words.length)];
-    //   return randomWord;
-    // }
-    //List<String, String> opponent = Opponent(username: username, word: word);
-    String word = widget.word;
-  }
-
+  // if (words.isNotEmpty){
+  //   var random = Random();
+  //   String randomWord = words[random.nextInt(words.length)];
+  //   return randomWord;
+  // }
+  //List<String, String> opponent = Opponent(username: username, word: word);
+  //   String word = widget.word;
+  //    return word:
+  //  }
   // checks word/victory
   void checkGuess() {
     guess = guess.toLowerCase().trim();
@@ -60,7 +64,7 @@ class _GameLogicState extends State<GameLogic> {
       }
     });
     if (gameOver) {
-      storage.saveWordResults(username, word, failedAttempts);
+      victory = true;
     }
   }
 
@@ -81,18 +85,20 @@ class _GameLogicState extends State<GameLogic> {
   }
 
   void game() {
-    word = loadWord();
+    String word = widget.word;
+    List<String> letters = word.split("");
     int lives = 0;
     int frame = 0;
-    for (var i = 0; i < word.length; i++) {
+    for (var i = 0; i < letters.length; i++) {
       if (guess == word) {
         victory = true;
-      } else if (guess[0] == word[i]) {
-        word[i] = guess[0];
+      } else if (guess[0] == letters[i]) {
+        letters[i] = guess[0];
       } else {
         guessedLetter.add(guess);
         lives++;
         frame++;
+        failedAttempts++;
       }
     }
   }
