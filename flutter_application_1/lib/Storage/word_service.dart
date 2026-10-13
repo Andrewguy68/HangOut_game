@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseException;
 
+import 'package:flutter_application_1/Storage/opponent.dart';
 import 'package:flutter_application_1/Storage/word_dictionary.dart';
 import 'package:flutter_application_1/Storage/word_rules.dart';
 import 'package:flutter_application_1/Storage/word_storage.dart';
@@ -13,12 +14,11 @@ import 'package:flutter_application_1/auth_service.dart';
 ///   5. save it
 class WordService {
   WordService({
-    required WordStorage storage,
+    required this._storage,
     required AuthService auth,
     Future<WordDictionary> Function()? loadDictionary,
     DateTime Function()? now,
-  }) : _storage = storage,
-       _auth = auth,
+  }) : _auth = auth,
        _loadDictionary = loadDictionary ?? (() => WordDictionary.loadAsset()),
        _now = now ?? DateTime.now;
 
@@ -29,9 +29,6 @@ class WordService {
 
   WordDictionary? _dictionary;
 
-  /// Validates and saves [raw]. Returns the word as saved (trimmed,
-  /// lowercase). Throws a [WordException] with a user-friendly message when a
-  /// check fails; storage errors are passed through
   Future<String> submitWord(String raw) async {
     final user = _auth.currentUser;
     if (user == null) {
@@ -57,6 +54,29 @@ class WordService {
 
     await _storage.saveWord(uid: user.uid, word: word);
     return word;
+  }
+
+  Future<Opponent> pickOpponent() async {
+    final user = _auth.currentUser;
+    if (user == null) {
+      throw const WordException('You need to be signed in to play.');
+    }
+
+    final Opponent? opponent;
+    try {
+      opponent = await _storage.randomOpponent(excludeUid: user.uid);
+    } on FirebaseException {
+      throw const WordException(
+        "Couldn't find an opponent right now. Please try again.",
+      );
+    }
+
+    if (opponent == null) {
+      throw const WordException(
+        'No other player has added a word yet. Ask a friend to add one!',
+      );
+    }
+    return opponent;
   }
 
   // Loaded on first use and kept, so only the first submit pays for parsing

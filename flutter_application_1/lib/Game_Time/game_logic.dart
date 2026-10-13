@@ -71,8 +71,16 @@ class _GameLogicState extends State<GameLogic> {
     setState(() {
       if (frame < 6) {
         frame++;
-      } else {
-        victory = true;
+      }
+      if (frame >= 6){
+        Timer(Duration(seconds: 3), () {
+        Navigator.pushReplacement(
+          context, 
+          MaterialPageRoute(
+            builder:(context) => const GameOver(),
+          ),
+        );
+        });
       }
     });
   }
@@ -103,7 +111,7 @@ class _GameLogicState extends State<GameLogic> {
       children: [
         CustomPaint(
           size: const Size(300, 300),
-          painter: drawMan(frame, draw, victory),
+          painter: drawMan(frame),
         ),
         ElevatedButton(
           onPressed: nextFrame,

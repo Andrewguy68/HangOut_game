@@ -1,4 +1,8 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'package:flutter_application_1/Storage/opponent.dart';
 
 /// Where players' words live in Firestore: one document per player at
 /// `words/{uid}` holding their current word:
@@ -26,5 +30,21 @@ class WordStorage {
       'username': username is String ? username : 'unknown',
       'submittedAt': FieldValue.serverTimestamp(),
     });
+  }
+
+  Future<Opponent?> randomOpponent({required String excludeUid}) async {
+    final snapshot = await _db.collection('words').get();
+    final candidates = <Opponent>[];
+    for (final doc in snapshot.docs) {
+      if (doc.id == excludeUid) continue;
+      final data = doc.data();
+      final word = data['word'];
+      final username = data['username'];
+      if (word is String && username is String) {
+        candidates.add(Opponent(username: username, word: word));
+      }
+    }
+    if (candidates.isEmpty) return null;
+    return candidates[Random().nextInt(candidates.length)];
   }
 }
