@@ -24,8 +24,11 @@ class _GameTimeState extends State<GameTime> {
     //builds the main menu widget
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Category and Opponent'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text(
+          'Somehow get Opponent!',
+          style: Theme.of(context).textTheme.headlineMedium,
+          textAlign: TextAlign.center,
+        ),
       ),
       body: Center(
         child: Column(

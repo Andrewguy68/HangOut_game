@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 import 'firebase_options.dart';
 import 'auth_gate.dart';
 import 'auth_scope.dart';
@@ -42,6 +42,20 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
             useMaterial3: true,
+            textTheme: TextTheme(
+              headlineLarge: GoogleFonts.honk(
+                fontSize: 48,
+                fontWeight: FontWeight.bold,
+              ),
+              headlineMedium: GoogleFonts.honk(
+                fontSize: 36,
+                fontWeight: FontWeight.bold,
+              ),
+              headlineSmall: GoogleFonts.honk(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
           home: const AuthGate(),
         ),

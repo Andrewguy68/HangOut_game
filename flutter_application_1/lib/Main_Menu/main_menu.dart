@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_application_1/Game_Time/game_page.dart';
 import 'package:flutter_application_1/Main_Menu/add_word_dialog.dart';
 import 'package:flutter_application_1/Storage/word_scope.dart';
@@ -7,6 +6,7 @@ import 'package:flutter_application_1/Storage/word_service.dart';
 import 'package:flutter_application_1/Widget_Setup/widgit_build.dart';
 import 'package:flutter_application_1/auth_scope.dart';
 import 'package:flutter_application_1/Leaderboard/leaderboard.dart';
+
 
 class MainMenu extends StatefulWidget {
   const MainMenu({super.key});
@@ -67,8 +67,11 @@ class _MainMenuState extends State<MainMenu> {
     //builds the main menu widget
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Hang-Out!'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text(
+          'Hang-Out!',
+          style: Theme.of(context).textTheme.headlineMedium,
+          textAlign: TextAlign.center,
+        ),
       ),
       body: Center(
         child: SingleChildScrollView(

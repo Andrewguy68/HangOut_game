@@ -39,6 +39,7 @@ dependencies:
   cloud_firestore: ^6.10.0
   sidebar_widget: ^0.1.0
   pop_overlay: ^5.0.0
+  google_fonts: ^9.0.0
 
 dev_dependencies:
   flutter_test:
