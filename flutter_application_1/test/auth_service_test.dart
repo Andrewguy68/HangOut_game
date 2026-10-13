@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:flutter_application_1/auth_service.dart';
@@ -32,7 +31,8 @@ void main() {
       'wrong-password': 'Incorrect username or password.',
       'invalid-credential': 'Incorrect username or password.',
       'user-disabled': 'This account has been disabled.',
-      'too-many-requests': 'Too many attempts. Please wait a bit and try again.',
+      'too-many-requests':
+          'Too many attempts. Please wait a bit and try again.',
       'network-request-failed':
           'No internet connection. Check your network and try again.',
       'operation-not-allowed':

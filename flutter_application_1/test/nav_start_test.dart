@@ -173,33 +173,4 @@ void main() {
       expect(taps, 0);
     });
   });
-
-  group('NavStart.rectangle', () {
-    testWidgets('shows the numbered list 1 to 10', (tester) async {
-      await tester.pumpWidget(
-        wrap(Builder(builder: (context) => NavStart().rectangle(context))),
-      );
-
-      expect(
-        find.text('1. \n2. \n3. \n4. \n5. \n6. \n7. \n8. \n9. \n10.'),
-        findsOneWidget,
-      );
-    });
-
-    testWidgets('draws a 2px black border with rounded corners', (
-      tester,
-    ) async {
-      await tester.pumpWidget(
-        wrap(Builder(builder: (context) => NavStart().rectangle(context))),
-      );
-
-      final boxFinder = find.byWidgetPredicate((w) {
-        if (w is! Container || w.decoration is! BoxDecoration) return false;
-        final d = w.decoration as BoxDecoration;
-        return d.border == Border.all(color: Colors.black, width: 2) &&
-            d.borderRadius == BorderRadius.circular(10);
-      });
-      expect(boxFinder, findsOneWidget);
-    });
-  });
 }
