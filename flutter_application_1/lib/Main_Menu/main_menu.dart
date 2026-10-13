@@ -84,7 +84,7 @@ class _MainMenuState extends State<MainMenu> {
                 "Leaderboard",
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 20),
               FutureBuilder<
                 List<({int rank, String username, int failedAttempts})>
               >(
@@ -125,6 +125,7 @@ class _MainMenuState extends State<MainMenu> {
                   );
                 },
               ),
+              const SizedBox(height: 20),
               //LeaderboardDisplay(entries: entries),
               NavStart().buildActionButton(
                 context,
