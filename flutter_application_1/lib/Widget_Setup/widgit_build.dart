@@ -38,11 +38,73 @@ class NavStart {
         key: Key(label),
         child: loading
             ? const SizedBox(
-                width: 20,
-                height: 20,
+                width: 15,
+                height: 15,
                 child: CircularProgressIndicator(strokeWidth: 2),
               )
             : Text(label),
+      ),
+    );
+  }
+
+  Widget leaderboard(BuildContext context, String label) {
+    // Builds a leaderboard list widget.
+    return ListView(
+      padding: const EdgeInsets.all(8),
+      children: <Widget>[
+        Container(
+          height: 20,
+          color: Colors.blue[200],
+          child: const Center(child: Text('Entry A')),
+        ),
+        Container(
+          height: 50,
+          color: Colors.blue[200],
+          child: const Center(child: Text('Entry B')),
+        ),
+        Container(
+          height: 50,
+          color: Colors.blue[200],
+          child: const Center(child: Text('Entry C')),
+        ),
+      ],
+    );
+  }
+
+  Widget letterInput(BuildContext context, String label, Widget destination) {
+    // Builds a navigation button widget which creates all of the needed elevated buttons for this code.
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        vertical: 8.0,
+      ), // good for now, implement with logic later
+      child: ElevatedButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => destination),
+          );
+        },
+        key: Key(label),
+        child: Text(label),
+      ),
+    );
+  }
+
+  Widget Solve(BuildContext context, String label, Widget destination) {
+    // Builds a navigation button widget which creates all of the needed elevated buttons for this code.
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        vertical: 8.0,
+      ), // good for now, implement with logic later
+      child: ElevatedButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => destination),
+          );
+        },
+        key: Key(label),
+        child: Text(label),
       ),
     );
   }
