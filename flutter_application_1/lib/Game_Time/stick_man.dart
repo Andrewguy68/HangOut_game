@@ -12,31 +12,31 @@ class drawMan extends CustomPainter {
       ..strokeWidth = 5.0; // Stroke width
     
 
-    canvas.drawLine(Offset(25, 200), Offset(125, 200), paint); // Base
-    canvas.drawLine(Offset(75, 200), Offset(75, 50), paint); // Pole
-    canvas.drawLine(Offset(75, 50), Offset(150, 50), paint); // Top beam
-    canvas.drawLine(Offset(150, 50), Offset(150, 75), paint); // Rope
+    canvas.drawLine(Offset(25, 250), Offset(125, 250), paint); // Base
+    canvas.drawLine(Offset(75, 250), Offset(75, 10), paint); // Pole
+    canvas.drawLine(Offset(75, 10), Offset(150, 10), paint); // Top beam
+    canvas.drawLine(Offset(150, 10), Offset(150, 50), paint); // Rope
 
     if (frame >= 1) {
-      canvas.drawCircle(Offset(150, 100), 25, paint); // Head
+      canvas.drawCircle(Offset(150, 75), 25, paint); // Head
     }
     if (frame >= 2) {
-      canvas.drawLine(Offset(150, 125), Offset(150, 175), paint); // Body
+      canvas.drawLine(Offset(150, 100), Offset(150, 150), paint); // Body
       
     }
     else if (frame >= 3) {
-      canvas.drawLine(Offset(150, 125), Offset(125, 150), paint); // Left arm
+      canvas.drawLine(Offset(150, 115), Offset(125, 115), paint); // Left arm
 
     }
     else if (frame >= 4) {
-      canvas.drawLine(Offset(150, 125), Offset(175, 150), paint); // Right arm
+      canvas.drawLine(Offset(150, 115), Offset(175, 115), paint); // Right arm
 
     }
     else if (frame >= 5) {
-      canvas.drawLine(Offset(150, 175), Offset(125, 200), paint); // Left leg
+      canvas.drawLine(Offset(150, 150), Offset(125, 175), paint); // Left leg
     }
     else if (frame >= 6) {
-      canvas.drawLine(Offset(150, 175), Offset(175, 200), paint); // Right leg
+      canvas.drawLine(Offset(150, 150), Offset(175, 175), paint); // Right leg
     
     }
   }

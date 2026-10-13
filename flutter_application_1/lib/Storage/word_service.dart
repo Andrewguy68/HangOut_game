@@ -13,12 +13,11 @@ import 'package:flutter_application_1/auth_service.dart';
 ///   5. save it
 class WordService {
   WordService({
-    required WordStorage storage,
+    required this._storage,
     required AuthService auth,
     Future<WordDictionary> Function()? loadDictionary,
     DateTime Function()? now,
-  }) : _storage = storage,
-       _auth = auth,
+  }) : _auth = auth,
        _loadDictionary = loadDictionary ?? (() => WordDictionary.loadAsset()),
        _now = now ?? DateTime.now;
 

@@ -1,7 +1,5 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/Leaderboard/leaderboard.dart';
 
 class NavStart {
   Widget buildNavButton(
