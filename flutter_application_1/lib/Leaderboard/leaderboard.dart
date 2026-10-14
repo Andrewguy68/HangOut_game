@@ -12,6 +12,7 @@ class Leaderboard {
     Map<String, int> results = {};
 
     var wordResults = await db.collection('wordResults').get();
+    print("Leaderboard documents: ${wordResults.docs.length}");
 
     for (var i in wordResults.docs) {
       String username = i['username'] as String;
@@ -23,10 +24,10 @@ class Leaderboard {
     var ranking = results.entries.toList(); //usernames and failedAttempts grouped together
 
     ranking.sort((a, b) {
-      if (a.value < b.value) {
+      if (a.value > b.value) {
         return -1;
       }
-      if (a.value > b.value) {
+      if (a.value < b.value) {
         return 1;
       }
       return 0;
@@ -44,4 +45,5 @@ class Leaderboard {
 
     return leaderboard;
   }
+
 }

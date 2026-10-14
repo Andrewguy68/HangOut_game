@@ -47,4 +47,30 @@ class WordStorage {
     if (candidates.isEmpty) return null;
     return candidates[Random().nextInt(candidates.length)];
   }
+  Future<void> saveWordResults(
+    String username,
+    String word,
+    int failedAttempts,
+  ) async {
+    await _db.collection('wordResults').add({
+      'username': username,
+      'word': word.trim().toLowerCase(),
+      'failedAttempts': failedAttempts,
+    });
+  }
+
+  Future<Map<String, int>> getWordResults(String username) async {
+    Map<String, int> results = {};
+
+    var wordResults = await _db
+        .collection('wordResults')
+        .where('username', isEqualTo: username)
+        .get();
+
+    for (var i in wordResults.docs) {
+      results[i['word']] = (i['failedAttempts'] as num).toInt();
+    }
+
+    return results;
+  }
 }

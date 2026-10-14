@@ -21,7 +21,7 @@ class MainMenu extends StatefulWidget {
 
 class _MainMenuState extends State<MainMenu> {
   final Leaderboard leaderboard = Leaderboard();
-  late final Future<List<({int rank, String username, int failedAttempts})>>
+  late Future<List<({int rank, String username, int failedAttempts})>>
   _leaders = leaderboard.getLeaderboard();
   bool _starting = false;
 
@@ -34,6 +34,11 @@ class _MainMenuState extends State<MainMenu> {
       ),
     );
   }
+  void refreshLeaderboard() {
+  setState(() {
+    _leaders = leaderboard.getLeaderboard();
+  });
+}
 
   Future<void> _startGame() async {
     final words = WordScope.of(context);
@@ -41,9 +46,11 @@ class _MainMenuState extends State<MainMenu> {
     try {
       final opponent = await words.pickOpponent();
       if (!mounted) return;
-      Navigator.of(
+      await Navigator.of(
         context,
       ).push(MaterialPageRoute(builder: (_) => GameTime(opponent: opponent)));
+      if (!mounted) return;
+      refreshLeaderboard();
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context)
@@ -86,6 +93,9 @@ class _MainMenuState extends State<MainMenu> {
                       padding: EdgeInsets.all(10),
                       child: CircularProgressIndicator(),
                     );
+                  }
+                  if (snapshot.hasError) {
+                    return Text("Leaderboard error: ${snapshot.error}");
                   }
                   if (!snapshot.hasData ||
                       snapshot.data == null ||
