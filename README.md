@@ -8,4 +8,12 @@ This is project 6 for Mobile Software Development! Our app is a fun variation of
 - This app is useful because it is a very fun and appealing game. We believe the word restricting time function allows for a new way of playing the game. This creates the idea that volume doesn't matter as much as complexity of a single word. Our app is unique in this aspect which increases its usefulness. Overall, it could be built upon and edited into a fairly successful app!
 Why the app is useful
 
-Multiple Screenshots of your app
+Multiple Screenshots of our app
+<img width="1080" height="2400" alt="Screenshot_20261014-110858" src="https://github.com/user-attachments/assets/a67811c1-60b7-43a6-93f9-d9fab351aa37" />
+<img width="1080" height="2400" alt="Screenshot_20261014-111515" src="https://github.com/user-attachments/assets/51609a89-555f-437b-833d-61cc07be1535" />
+<img width="1080" height="2400" alt="Screenshot_20261014-111447" src="https://github.com/user-attachments/assets/cb683d9a-1fad-4e5e-a7a3-27f3029ab888" />
+<img width="1080" height="2400" alt="Screenshot_20261014-111429" src="https://github.com/user-attachments/assets/2cb417c1-1c67-4b8d-8546-822eb054b64b" />
+<img width="1080" height="2400" alt="Screenshot_20261014-111330" src="https://github.com/user-attachments/assets/63d09a5c-1d95-4997-afb5-73fe349ac0ce" />
+<img width="1080" height="2400" alt="Screenshot_20261014-111317" src="https://github.com/user-attachments/assets/93060520-6974-4916-b377-5a7d1392a325" />
+<img width="1080" height="2400" alt="Screenshot_20261014-111210" src="https://github.com/user-attachments/assets/793b643a-299c-4232-8221-1819c9d3c2e1" />
+
