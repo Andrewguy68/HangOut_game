@@ -20,6 +20,25 @@ class GameTime extends StatefulWidget {
 
 class _GameTimeState extends State<GameTime> {
   @override
+  final TextEditingController guessController = TextEditingController();
+  final GlobalKey<GameLogicState> gameKey = GlobalKey<GameLogicState>();
+  
+  void submitGuess(){
+    String guess = guessController.text;
+
+    gameKey.currentState?.guess = guess;
+    gameKey.currentState?.game();
+
+    guessController.clear();
+  }
+
+  @override
+  void dispose() {
+    guessController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     //builds the main menu widget
     return Scaffold(
@@ -39,11 +58,12 @@ class _GameTimeState extends State<GameTime> {
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
-            GameLogic(word: widget.opponent.word),
+            GameLogic(key: gameKey, word: widget.opponent.word),
             const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 50),
               child: TextField(
+                controller: guessController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Enter a Letter',
@@ -52,10 +72,9 @@ class _GameTimeState extends State<GameTime> {
               ),
             ),
             const SizedBox(height: 20),
-            NavStart().letterInput(
-              context,
-              'Add a Letter',
-              const MainMenu(),
+            ElevatedButton(
+              onPressed: submitGuess,
+              child: const Text('Add a Letter'),
             ), //this will check the letter and call the letter input function
             NavStart().Solve(
               context,
