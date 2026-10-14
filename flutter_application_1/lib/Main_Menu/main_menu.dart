@@ -6,7 +6,6 @@ import 'package:flutter_application_1/Storage/word_service.dart';
 import 'package:flutter_application_1/Widget_Setup/widgit_build.dart';
 import 'package:flutter_application_1/Leaderboard/leaderboard.dart';
 
-
 class MainMenu extends StatefulWidget {
   const MainMenu({super.key});
 
@@ -21,8 +20,8 @@ class MainMenu extends StatefulWidget {
 
 class _MainMenuState extends State<MainMenu> {
   final Leaderboard leaderboard = Leaderboard();
-  late Future<List<({int rank, String username, int failedAttempts})>>
-  _leaders = leaderboard.getLeaderboard();
+  late Future<List<({int rank, String username, int score})>> _leaders =
+      leaderboard.getLeaderboard();
   bool _starting = false;
 
   Future<void> _addWord() async {
@@ -34,11 +33,12 @@ class _MainMenuState extends State<MainMenu> {
       ),
     );
   }
+
   void refreshLeaderboard() {
-  setState(() {
-    _leaders = leaderboard.getLeaderboard();
-  });
-}
+    setState(() {
+      _leaders = leaderboard.getLeaderboard();
+    });
+  }
 
   Future<void> _startGame() async {
     final words = WordScope.of(context);
@@ -83,9 +83,7 @@ class _MainMenuState extends State<MainMenu> {
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               const SizedBox(height: 20),
-              FutureBuilder<
-                List<({int rank, String username, int failedAttempts})>
-              >(
+              FutureBuilder<List<({int rank, String username, int score})>>(
                 future: _leaders,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
@@ -117,9 +115,7 @@ class _MainMenuState extends State<MainMenu> {
                         child: ListTile(
                           leading: CircleAvatar(child: Text('${player.rank}')),
                           title: Text(player.username),
-                          subtitle: Text(
-                            "Failed Attempts: ${player.failedAttempts}",
-                          ),
+                          subtitle: Text("Score: ${player.score}"),
                         ),
                       );
                     },

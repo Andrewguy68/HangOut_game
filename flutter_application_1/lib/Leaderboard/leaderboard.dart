@@ -1,49 +1,44 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Leaderboard {
-  // getresults{}
-  // get the failedAttempts
-  // add them to a database
-  // sort the database
-  // retrive rank 1 - 5
   final FirebaseFirestore db = FirebaseFirestore.instance;
 
-  Future<List<({int rank, String username, int failedAttempts})>> getLeaderboard() async {
-    Map<String, int> results = {};
+  Future<List<({int rank, String username, int score})>>
+  getLeaderboard() async {
+    final scores = <String, int>{};
 
-    var wordResults = await db.collection('wordResults').get();
-    print("Leaderboard documents: ${wordResults.docs.length}");
-
-    for (var i in wordResults.docs) {
-      String username = i['username'] as String;
-      int attempts = (i['failedAttempts'] as num).toInt();
-
-      results[username] = (results[username] ?? 0) + attempts;
+    final words = await db.collection('words').get();
+    for (final doc in words.docs) {
+      final username = doc.data()['username'];
+      if (username is String) scores[username] = 0;
     }
 
-    var ranking = results.entries.toList(); //usernames and failedAttempts grouped together
+    final failures = await db
+        .collection('gameResults')
+        .where('solved', isEqualTo: false)
+        .get();
+    for (final doc in failures.docs) {
+      final owner = doc.data()['ownerUsername'];
+      if (owner is String) scores[owner] = (scores[owner] ?? 0) + 1;
+    }
 
-    ranking.sort((a, b) {
-      if (a.value > b.value) {
-        return -1;
-      }
-      if (a.value < b.value) {
-        return 1;
-      }
-      return 0;
-    });
+    final ranking = scores.entries.toList()
+      ..sort((a, b) {
+        final byScore = b.value.compareTo(a.value);
+        if (byScore != 0) return byScore;
+        return a.key.toLowerCase().compareTo(b.key.toLowerCase());
+      });
 
-    List<({int rank, String username, int failedAttempts})> leaderboard = [];
-
-    for (var i = 0; i < ranking.length && i < 5; i++) {
+    final leaderboard = <({int rank, String username, int score})>[];
+    for (var i = 0; i < ranking.length; i++) {
+      final tiedWithPrevious =
+          i > 0 && ranking[i].value == ranking[i - 1].value;
       leaderboard.add((
-        rank: i + 1,
+        rank: tiedWithPrevious ? leaderboard[i - 1].rank : i + 1,
         username: ranking[i].key,
-        failedAttempts: ranking[i].value
+        score: ranking[i].value,
       ));
     }
-
     return leaderboard;
   }
-
 }
