@@ -33,6 +33,8 @@ class GameLogicState extends State<GameLogic> {
   
   String username = 'username';
 
+  bool resultSaved = false;
+
 
   void nextFrame() {
     setState(() {
@@ -101,6 +103,19 @@ class GameLogicState extends State<GameLogic> {
           gameOver = true;
         }
       });
+      if (gameOver && !resultSaved) {
+        resultSaved = true;
+
+        unawaited(
+          storage.saveWordResults(
+            widget.opponent.username,
+            widget.word.toLowerCase().trim(),
+            failedAttempts,
+          ).catchError((e) {
+            debugPrint("Error saving results: $e");
+          }),
+        );
+      }
   }
   
   void solve(){
@@ -121,13 +136,40 @@ class GameLogicState extends State<GameLogic> {
       nextFrame();
     }
     if (gameOver && victory) {
+      if (!resultSaved) {
+        resultSaved = true;
+
+        unawaited(
+          storage.saveWordResults(
+            widget.opponent.username,
+            widget.word.toLowerCase().trim(),
+            failedAttempts,
+          ).catchError((e) {
+            debugPrint("Error saving results: $e");
+          }),
+        );
+      }
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
         builder: (context) => GameOver(opponent: widget.opponent, victory: victory),
       ),
     );
-  }
+    }
+    if (failedAttempts >= 6 && !resultSaved) {
+      gameOver = true;
+      resultSaved = true;
+
+      unawaited(
+        storage.saveWordResults(
+          widget.opponent.username,
+          widget.word.toLowerCase().trim(),
+          failedAttempts,
+        ).catchError((e) {
+          debugPrint("Error saving results: $e");
+        }),
+      );
+    }
   }
 
   String displayWord(){
