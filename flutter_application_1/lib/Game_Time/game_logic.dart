@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Leaderboard/leaderboard.dart';
 import 'package:flutter_application_1/Game_Time/stick_man.dart';
 import 'package:flutter_application_1/Storage/word_storage.dart';
 import 'package:flutter_application_1/Storage/opponent.dart';
