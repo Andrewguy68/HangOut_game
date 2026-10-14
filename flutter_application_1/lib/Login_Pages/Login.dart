@@ -1,8 +1,6 @@
-import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 
 import 'package:flutter_application_1/Login_Pages/auth_form.dart';
-import 'package:flutter_application_1/Main_Menu/main_menu.dart';
 import 'package:flutter_application_1/Widget_Setup/widgit_build.dart';
 import 'package:flutter_application_1/auth_scope.dart';
 import 'package:flutter_application_1/validators.dart';
