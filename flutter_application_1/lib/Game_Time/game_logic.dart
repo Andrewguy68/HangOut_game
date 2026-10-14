@@ -64,7 +64,7 @@ class GameLogicState extends State<GameLogic> {
         frame++;
       }
       if (frame >= 6) {
-        Timer(Duration(seconds: 3), () {
+        Timer(Duration(seconds: 2), () {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(

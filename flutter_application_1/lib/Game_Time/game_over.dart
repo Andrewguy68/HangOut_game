@@ -57,8 +57,9 @@ class _GameOverState extends State<GameOver> {
                     ),
             ),
             Text(
-              "Your word was: ${widget.opponent.word}!",
+              "Your word was:\n ${widget.opponent.word}!",
               style: Theme.of(context).textTheme.headlineMedium,
+              textAlign: TextAlign.center,
             ),
             const SizedBox(height: 20),
             NavStart().buildActionButton(

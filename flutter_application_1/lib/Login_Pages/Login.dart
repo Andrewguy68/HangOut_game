@@ -68,6 +68,9 @@ class Signup extends StatelessWidget {
               if (!context.mounted) return;
               Navigator.of(context).popUntil((route) => route.isFirst);
             },
+              footer: [
+              NavStart().buildNavButton(context, 'Back to Login', const Login()),
+            ],
           ),
         ),
       ),
