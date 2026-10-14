@@ -101,9 +101,35 @@ class GameLogicState extends State<GameLogic> {
           gameOver = true;
         }
       });
-  
   }
   
+  void solve(){
+    String word = widget.word.toLowerCase().trim();
+    guess = guess.toLowerCase().trim();
+
+    if (gameOver || guess.isEmpty){
+      return;
+    }
+    if (guess == word){
+      setState(() {
+        gameOver = true;
+        victory = true;
+      });
+      }
+    else{
+      failedAttempts++;
+      nextFrame();
+    }
+    if (gameOver && victory) {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => GameOver(opponent: widget.opponent, victory: victory),
+      ),
+    );
+  }
+  }
+
   String displayWord(){
     String display = "";
     

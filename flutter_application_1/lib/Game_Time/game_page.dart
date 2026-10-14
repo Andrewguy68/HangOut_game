@@ -32,6 +32,15 @@ class _GameTimeState extends State<GameTime> {
     guessController.clear();
   }
 
+  void submitSolve(){
+    String guess = guessController.text;
+
+    gameKey.currentState?.guess = guess;
+    gameKey.currentState?.solve();
+
+    guessController.clear();
+  }
+
   @override
   void dispose() {
     guessController.dispose();
@@ -80,11 +89,9 @@ class _GameTimeState extends State<GameTime> {
               onPressed: submitGuess,
               child: const Text('Add a Letter'),
             ), //this will check the letter and call the letter input function
-            NavStart().Solve(
-              context,
-              'Solve',
-              const MainMenu(),
-            ), //this will check the word and call the solve function
+            ElevatedButton(
+              onPressed: submitSolve, 
+              child: const Text("Solve")), //this will check the word and call the solve function
           ],
         ),
       ),
