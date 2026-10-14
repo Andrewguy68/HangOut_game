@@ -4,14 +4,15 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Game_Time/stick_man.dart';
 import 'package:flutter_application_1/Storage/word_storage.dart';
-import 'package:flutter_application_1/storage/opponent.dart';
+import 'package:flutter_application_1/Storage/opponent.dart';
 import 'package:flutter_application_1/Game_Time/game_page.dart';
 import 'package:flutter_application_1/Game_Time/game_over.dart';
 
 
 class GameLogic extends StatefulWidget {
-  const GameLogic({super.key, required this.word});
+  const GameLogic({super.key, required this.word, required this.opponent});
   final String word;
+  final Opponent opponent;
   
   @override
   State<GameLogic> createState() => GameLogicState();
@@ -25,8 +26,6 @@ class GameLogicState extends State<GameLogic> {
   String guess = "";
   bool gameOver = false;
   int failedAttempts = 0;
-
-  
   List<String> guessedLetter = [];
 
   WordStorage storage = WordStorage();
@@ -44,7 +43,7 @@ class GameLogicState extends State<GameLogic> {
         Navigator.pushReplacement(
           context, 
           MaterialPageRoute(
-            builder:(context) => const GameOver(),
+            builder:(context) => GameOver(opponent: widget.opponent, victory: victory),
           ),
         );
         });
@@ -117,6 +116,8 @@ class GameLogicState extends State<GameLogic> {
 
     return display;
   }
+
+  
  
 
 

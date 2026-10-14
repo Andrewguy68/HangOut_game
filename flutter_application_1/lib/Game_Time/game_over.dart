@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Main_Menu/main_menu.dart';
 import 'package:flutter_application_1/Widget_Setup/widgit_build.dart';
 import 'package:flutter_application_1/auth_scope.dart';
+import 'package:flutter_application_1/Storage/opponent.dart';
 
 class GameOver extends StatefulWidget {
-  const GameOver({super.key});
+  const GameOver({super.key, required this.opponent, required this.victory,});
+  final Opponent opponent;
+  final bool victory;
 
   @override
   State<GameOver> createState() => _GameOverState();
@@ -37,19 +41,33 @@ class _GameOverState extends State<GameOver> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              "Congrats! You Win!",
-              style: Theme.of(context).textTheme.headlineSmall,
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: widget.victory
+                  ? Text(
+                      "Congrats! You Win!\nYour Opponent: ${widget.opponent.username}, Loses!",
+                      style: Theme.of(context).textTheme.headlineMedium,
+                      textAlign: TextAlign.center,
+                    )
+                  : Text(
+                      "You Lose!\nYour Opponent: ${widget.opponent.username}, Wins!",
+                      style: Theme.of(context).textTheme.headlineMedium,
+                      textAlign: TextAlign.center,
+                    ),
             ),
             Text(
-              "You Lose!",
-              style: Theme.of(context).textTheme.headlineSmall,
+              "Your word was: ${widget.opponent.word}!",
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
-            Text(
-              "Your word was:  WORD!",
-              style: Theme.of(context).textTheme.headlineSmall,
+            const SizedBox(height: 20),
+            NavStart().buildActionButton(
+              context,
+              "Back to Main Menu",
+              () => Navigator.of(context).pushReplacement(
+                MaterialPageRoute<void>(builder: (_) => MainMenu()),
+              ),
             ),
-            
             const SizedBox(height: 20),
             NavStart().buildActionButton(context, 'Sign Out', _signOut),
           ],

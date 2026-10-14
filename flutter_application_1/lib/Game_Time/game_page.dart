@@ -44,7 +44,7 @@ class _GameTimeState extends State<GameTime> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Somehow get Opponent!',
+          'Hang-Out Time!',
           style: Theme.of(context).textTheme.headlineLarge,
         ),
         centerTitle: true,
@@ -58,7 +58,11 @@ class _GameTimeState extends State<GameTime> {
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
-            GameLogic(key: gameKey, word: widget.opponent.word),
+            GameLogic(
+              key: gameKey,
+              word: widget.opponent.word,
+              opponent: widget.opponent,
+            ),
             const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 50),
