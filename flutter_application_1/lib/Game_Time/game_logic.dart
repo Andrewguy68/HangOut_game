@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Leaderboard/leaderboard.dart';
 import 'package:flutter_application_1/Game_Time/stick_man.dart';
 import 'package:flutter_application_1/Storage/word_storage.dart';
 import 'package:flutter_application_1/Storage/opponent.dart';
@@ -100,9 +101,35 @@ class GameLogicState extends State<GameLogic> {
           gameOver = true;
         }
       });
-  
   }
   
+  void solve(){
+    String word = widget.word.toLowerCase().trim();
+    guess = guess.toLowerCase().trim();
+
+    if (gameOver || guess.isEmpty){
+      return;
+    }
+    if (guess == word){
+      setState(() {
+        gameOver = true;
+        victory = true;
+      });
+      }
+    else{
+      failedAttempts++;
+      nextFrame();
+    }
+    if (gameOver && victory) {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => GameOver(opponent: widget.opponent, victory: victory),
+      ),
+    );
+  }
+  }
+
   String displayWord(){
     String display = "";
     
