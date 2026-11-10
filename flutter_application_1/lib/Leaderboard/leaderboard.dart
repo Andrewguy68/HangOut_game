@@ -33,11 +33,13 @@ class Leaderboard {
     for (var i = 0; i < ranking.length; i++) {
       final tiedWithPrevious =
           i > 0 && ranking[i].value == ranking[i - 1].value;
-      leaderboard.add((
-        rank: tiedWithPrevious ? leaderboard[i - 1].rank : i + 1,
-        username: ranking[i].key,
-        score: ranking[i].value,
-      ));
+      if (i < 5) {
+        leaderboard.add((
+          rank: tiedWithPrevious ? leaderboard[i - 1].rank : i + 1,
+          username: ranking[i].key,
+          score: ranking[i].value,
+        ));
+      }
     }
     return leaderboard;
   }
