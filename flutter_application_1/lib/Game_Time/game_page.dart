@@ -26,10 +26,20 @@ class _GameTimeState extends State<GameTime> {
   void submitGuess(){
     String guess = guessController.text;
 
-    gameKey.currentState?.guess = guess;
-    gameKey.currentState?.game();
+    if (guess.length > 1 || guess.contains(RegExp(r'[^a-zA-Z]'))) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Please enter a single letter."),
+        ),
+      );
+      guessController.clear();
+    }
+    else {
+      gameKey.currentState?.guess = guess;
+      gameKey.currentState?.game();
 
-    guessController.clear();
+      guessController.clear();
+    }
   }
 
   void submitSolve(){
