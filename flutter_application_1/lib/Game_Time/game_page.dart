@@ -22,10 +22,12 @@ class _GameTimeState extends State<GameTime> {
   @override
   final TextEditingController guessController = TextEditingController();
   final GlobalKey<GameLogicState> gameKey = GlobalKey<GameLogicState>();
+  String guessedLetters = "";
+  Text guessedDisplay = Text("");
   
   void submitGuess(){
     String guess = guessController.text;
-
+    
     if (guess.length > 1 || guess.contains(RegExp(r'[^a-zA-Z]'))) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -35,6 +37,10 @@ class _GameTimeState extends State<GameTime> {
       guessController.clear();
     }
     else {
+      guessedLetters += "$guess, ";
+      setState(){guessedDisplay = Text("Already tried:  $guessedLetters");}
+      setState();
+      update();
       gameKey.currentState?.guess = guess;
       gameKey.currentState?.game();
 
@@ -82,6 +88,10 @@ class _GameTimeState extends State<GameTime> {
               word: widget.opponent.word,
               opponent: widget.opponent,
             ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: guessedDisplay,
+            ),
             const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 50),
@@ -106,5 +116,11 @@ class _GameTimeState extends State<GameTime> {
         ),
       ),
     );
+  }
+
+  void update() {
+    setState((){
+      //to update guessedLetters display
+    });
   }
 }
