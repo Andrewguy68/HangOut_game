@@ -74,6 +74,38 @@ class _GameTimeState extends State<GameTime> {
     super.dispose();
   }
 
+  Widget buildKeyboard() {
+    const rows = ['qwertyuiop', 'asdfghjkl', 'zxcvbnm'];
+
+    return Column(
+      children: rows.map((row) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: row.split('').map((letter) {
+            final used = usedLetters.contains(letter);
+            return Padding(
+              padding: const EdgeInsets.all(2),
+              child: SizedBox(
+                width: 30,
+                height: 44,
+                child: ElevatedButton(
+                  key: Key('key-$letter'),
+                  onPressed: used ? null : () => guessLetter(letter),
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.zero,
+                    disabledBackgroundColor: Colors.black,
+                    disabledForegroundColor: Colors.grey,
+                  ),
+                  child: Text(letter.toUpperCase()),
+                ),
+              ),
+            );
+          }).toList(),
+        );
+      }).toList(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     //builds the main menu widget
