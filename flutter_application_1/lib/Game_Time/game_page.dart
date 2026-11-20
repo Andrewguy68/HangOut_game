@@ -24,6 +24,23 @@ class _GameTimeState extends State<GameTime> {
   final GlobalKey<GameLogicState> gameKey = GlobalKey<GameLogicState>();
   String guessedLetters = "";
   Text guessedDisplay = Text("");
+
+  final Set<String> usedLetters = {};
+
+  void guessLetter(String letter) {
+    letter = letter.toLowerCase();
+
+    if (usedLetters.contains(letter)) return;
+
+    setState(() {
+      usedLetters.add(letter);
+      guessedLetters += "$letter, ";
+      guessedDisplay = Text("Already tried:  $guessedLetters");
+    });
+
+    gameKey.currentState?.guess = letter;
+    gameKey.currentState?.game();
+  }
   
   void submitGuess(){
     String guess = guessController.text;
@@ -37,13 +54,7 @@ class _GameTimeState extends State<GameTime> {
       guessController.clear();
     }
     else {
-      guessedLetters += "$guess, ";
-      setState(){guessedDisplay = Text("Already tried:  $guessedLetters");}
-      setState();
-      update();
-      gameKey.currentState?.guess = guess;
-      gameKey.currentState?.game();
-
+      guessLetter(guess);
       guessController.clear();
     }
   }
@@ -116,11 +127,5 @@ class _GameTimeState extends State<GameTime> {
         ),
       ),
     );
-  }
-
-  void update() {
-    setState((){
-      //to update guessedLetters display
-    });
   }
 }
