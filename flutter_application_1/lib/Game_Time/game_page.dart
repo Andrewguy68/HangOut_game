@@ -24,6 +24,25 @@ class _GameTimeState extends State<GameTime> {
   final GlobalKey<GameLogicState> gameKey = GlobalKey<GameLogicState>();
   String guessedLetters = "";
   Text guessedDisplay = Text("");
+
+  final Set<String> usedLetters = {};
+
+//adds a usedLetters set and a guessletter() method. submitguess now calls it, so the text field
+//and the keyboard handle guesses the same way. removs the unused update method
+  void guessLetter(String letter) {
+    letter = letter.toLowerCase();
+
+    if (usedLetters.contains(letter)) return;
+
+    setState(() {
+      usedLetters.add(letter);
+      guessedLetters += "$letter, ";
+      guessedDisplay = Text("Already tried:  $guessedLetters");
+    });
+
+    gameKey.currentState?.guess = letter;
+    gameKey.currentState?.game();
+  }
   
   void submitGuess(){
     String guess = guessController.text;
@@ -37,13 +56,7 @@ class _GameTimeState extends State<GameTime> {
       guessController.clear();
     }
     else {
-      guessedLetters += "$guess, ";
-      setState(){guessedDisplay = Text("Already tried:  $guessedLetters");}
-      setState();
-      update();
-      gameKey.currentState?.guess = guess;
-      gameKey.currentState?.game();
-
+      guessLetter(guess);
       guessController.clear();
     }
   }
@@ -62,7 +75,41 @@ class _GameTimeState extends State<GameTime> {
     guessController.dispose();
     super.dispose();
   }
+//added buildkeyboard(), which makes a key for each letter, letters that have already been guessed
+// are disabled and blacked out so they can't be tapped again
+  Widget buildKeyboard() {
+    const rows = ['qwertyuiop', 'asdfghjkl', 'zxcvbnm'];
 
+    return Column(
+      children: rows.map((row) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: row.split('').map((letter) {
+            final used = usedLetters.contains(letter);
+            return Padding(
+              padding: const EdgeInsets.all(2),
+              child: SizedBox(
+                width: 30,
+                height: 44,
+                child: ElevatedButton(
+                  key: Key('key-$letter'),
+                  onPressed: used ? null : () => guessLetter(letter),
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.zero,
+                    disabledBackgroundColor: Colors.black,
+                    disabledForegroundColor: Colors.grey,
+                  ),
+                  child: Text(letter.toUpperCase()),
+                ),
+              ),
+            );
+          }).toList(),
+        );
+      }).toList(),
+    );
+  }
+//placed the keyboard below the solve button and wraps the page in a singlechildscrollview so the 
+//taller layout doesn't overflow on small screens
   @override
   Widget build(BuildContext context) {
     //builds the main menu widget
@@ -75,6 +122,7 @@ class _GameTimeState extends State<GameTime> {
         centerTitle: true,
       ),
       body: Center(
+        child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -112,15 +160,13 @@ class _GameTimeState extends State<GameTime> {
             ElevatedButton(
               onPressed: submitSolve, 
               child: const Text("Solve")), //this will check the word and call the solve function
+
+            const SizedBox(height: 10),
+            buildKeyboard(),
           ],
+        ),
         ),
       ),
     );
-  }
-
-  void update() {
-    setState((){
-      //to update guessedLetters display
-    });
   }
 }
